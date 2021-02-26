@@ -9,7 +9,37 @@ html {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-family: 'Roboto Mono', monospace;
+  background-color: #e8cebf;
+  color: #212121;
+}
+
+.timer {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  color: #212121;
+  border-radius: 2px;
+  width: 500px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.value {
+  font-size: 80px;
+}
+.field:not(:last-child) .value::after {
+  content: ':';
+}
+.label {
+  padding-left: 25px;
+  text-align: left;
+  font-size: 15px;
+}
+.message {
+  font-size: 60px;
+  text-align: center;
 }
