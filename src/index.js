@@ -2,20 +2,20 @@ import './styles.css';
 
 class CountdownTimer {
   constructor({ selector, targetDate }) {
-    this._refs = this._getRefs(selector);
-    this._endTime = targetDate.getTime();
-    this._intervalId = setInterval(() => {
-      this._currentTime = Date.now();
-      this._deltaTime = this._endTime - this._currentTime;
-      if (this._deltaTime <= 0) {
-        this._stopTimer(this._intervalId, this._refs);
+    this.refs = this.getRefs(selector);
+    this.endTime = targetDate.getTime();
+    this.intervalId = setInterval(() => {
+      this.currentTime = Date.now();
+      this.deltaTime = this.endTime - this.currentTime;
+      if (this.deltaTime <= 0) {
+        this.stopTimer(this.intervalId, this.refs);
         return;
       }
-      this._saveRestTime(this._deltaTime);
-      this._updateFaceTimer(this._refs);
+      this.saveRestTime(this.deltaTime);
+      this.updateFaceTimer(this.refs);
     }, 1000);
   }
-  _getRefs(root) {
+  getRefs(root) {
     const refs = {
       container: document.querySelector(`${root}`),
       days: document.querySelector(`${root} [data-value="days"]`),
@@ -26,29 +26,27 @@ class CountdownTimer {
     return refs;
   }
 
-  _pad(value) {
+  pad(value) {
     return String(value).padStart(2, '0');
   }
 
-  _saveRestTime(differ) {
-    this._days = this._pad(Math.floor(differ / (1000 * 60 * 60 * 24)));
-    this._hours = this._pad(
+  saveRestTime(differ) {
+    this.days = this.pad(Math.floor(differ / (1000 * 60 * 60 * 24)));
+    this.hours = this.pad(
       Math.floor((differ % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
     );
-    this._mins = this._pad(
-      Math.floor((differ % (1000 * 60 * 60)) / (1000 * 60)),
-    );
-    this._secs = this._pad(Math.floor((differ % (1000 * 60)) / 1000));
+    this.mins = this.pad(Math.floor((differ % (1000 * 60 * 60)) / (1000 * 60)));
+    this.secs = this.pad(Math.floor((differ % (1000 * 60)) / 1000));
   }
 
-  _updateFaceTimer({ days, hours, mins, secs }) {
-    days.textContent = this._days;
-    hours.textContent = this._hours;
-    mins.textContent = this._mins;
-    secs.textContent = this._secs;
+  updateFaceTimer({ days, hours, mins, secs }) {
+    days.textContent = this.days;
+    hours.textContent = this.hours;
+    mins.textContent = this.mins;
+    secs.textContent = this.secs;
   }
 
-  _stopTimer(id, { container }) {
+  stopTimer(id, { container }) {
     clearInterval(id);
     const message = '<p class="message">Time is over</p>';
     container.insertAdjacentHTML('afterend', message);
@@ -57,5 +55,5 @@ class CountdownTimer {
 
 const timer = new CountdownTimer({
   selector: '#timer-1',
-  targetDate: new Date(2021, 2, 26, 21, 18, 0),
+  targetDate: new Date(2021, 3, 1, 11, 11, 0),
 });
